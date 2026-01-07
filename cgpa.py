@@ -90,16 +90,17 @@ if group == 1:
     fab = st.number_input("TW (50)", 0.0, 50.0, 0.0, 1.0, key="g1_fab_tw")
     subjects.append(("FL", 1, fab / 50 * 100, gp(fab / 50 * 100)))
 
-    # IKS
+    # ✅ IKS (FIXED: TW 30 → 25 + CIE 25)
     st.markdown("### Indian Knowledge System (IKS)")
-    iks = st.number_input("TW (30)", 0.0, 30.0, 0.0, 1.0, key="g1_iks_tw")
-    subjects.append(("IKS", 2, iks / 30 * 100, gp(iks / 30 * 100)))
+    iks_tw = st.number_input("TW (30)", 0.0, 30.0, 0.0, 1.0, key="g1_iks_tw")
+    iks_cie = st.number_input("CIE (25)", 0.0, 25.0, 0.0, 1.0, key="g1_iks_cie")
+    iks_total = (iks_tw / 30 * 25) + iks_cie
+    subjects.append(("IKS", 2, iks_total / 50 * 100, gp(iks_total / 50 * 100)))
 
-    # ✅ CCA-1 (ADDED)
+    # CCA-1
     st.markdown("### Cocurricular Activity-1 (CCA-1)")
     cca = st.number_input("TW (25)", 0.0, 25.0, 0.0, 1.0, key="g1_cca_tw")
     subjects.append(("CCA-1", 1, cca / 25 * 100, gp(cca / 25 * 100)))
-    
 # ======================= GROUP 2 =======================
 elif group == 2:
     st.subheader("Group 2")
