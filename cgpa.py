@@ -27,8 +27,7 @@ if group == 1:
     cie = st.number_input("CIE (20)", 0.0, 20.0, 0.0, 1.0, key="g1_lac_cie")
     tw  = st.number_input("TW (60)", 0.0, 60.0, 0.0, 1.0, key="g1_lac_tw")
     total = ese + ise + cie + (tw / 60 * 25)
-    perc = total / 125 * 100
-    subjects.append(("LAC", 4, perc, gp(perc)))
+    subjects.append(("LAC", 4, total / 125 * 100, gp(total / 125 * 100)))
 
     # QP
     st.markdown("### Quantum Physics (QP)")
@@ -100,17 +99,14 @@ if group == 1:
 elif group == 2:
     st.subheader("Group 2")
 
-    # LAC
     st.markdown("### Linear Algebra and Calculus (LAC)")
     ese = st.number_input("ESE (60)", 0.0, 60.0, 0.0, 1.0, key="g2_lac_ese")
     ise = st.number_input("ISE (20)", 0.0, 20.0, 0.0, 1.0, key="g2_lac_ise")
     cie = st.number_input("CIE (20)", 0.0, 20.0, 0.0, 1.0, key="g2_lac_cie")
     tw  = st.number_input("TW (60)", 0.0, 60.0, 0.0, 1.0, key="g2_lac_tw")
     total = ese + ise + cie + (tw / 60 * 25)
-    perc = total / 125 * 100
-    subjects.append(("LAC", 4, perc, gp(perc)))
+    subjects.append(("LAC", 4, total / 125 * 100, gp(total / 125 * 100)))
 
-    # CST
     st.markdown("### Chemical Science and Technology (CST)")
     cst = (
         st.number_input("ESE (60)", 0.0, 60.0, 0.0, 1.0, key="g2_cst_ese") +
@@ -119,12 +115,10 @@ elif group == 2:
     )
     subjects.append(("CST", 2, cst, gp(cst)))
 
-    # CSTL
     st.markdown("### Chemical Science and Technology Lab (CSTL)")
     cstl = st.number_input("TW (100)", 0.0, 100.0, 0.0, 1.0, key="g2_cstl_tw")
     subjects.append(("CSTL", 1, cstl, gp(cstl)))
 
-    # CGD
     st.markdown("### Computer Graphics and Design (CGD)")
     cgd = (
         st.number_input("ESE (60)", 0.0, 60.0, 0.0, 1.0, key="g2_cgd_ese") +
@@ -133,12 +127,10 @@ elif group == 2:
     )
     subjects.append(("CGD", 2, cgd, gp(cgd)))
 
-    # CGDL
     st.markdown("### Computer Graphics and Design Lab (CGDL)")
     cgdl = st.number_input("TW (70)", 0.0, 70.0, 0.0, 1.0, key="g2_cgdl_tw")
     subjects.append(("CGDL", 1, cgdl / 70 * 100, gp(cgdl / 70 * 100)))
 
-    # CPPS
     st.markdown("### C Programming for Problem Solving (CPPS)")
     cpps = (
         st.number_input("ESE (60)", 0.0, 60.0, 0.0, 1.0, key="g2_cpps_ese") +
@@ -147,17 +139,14 @@ elif group == 2:
     )
     subjects.append(("CPPS", 2, cpps, gp(cpps)))
 
-    # CPPSL
     st.markdown("### C Programming for Problem Solving Lab (CPPSL)")
     cppsl = st.number_input("TW (100)", 0.0, 100.0, 0.0, 1.0, key="g2_cppsl_tw")
     subjects.append(("CPPSL", 1, cppsl, gp(cppsl)))
 
-    # IIDTL
     st.markdown("### Innovative Idea and Design Thinking Lab (IIDTL)")
     iidtl = st.number_input("TW (60)", 0.0, 60.0, 0.0, 1.0, key="g2_iidtl_tw")
     subjects.append(("IIDTL", 1, iidtl / 60 * 100, gp(iidtl / 60 * 100)))
 
-    # ESE
     st.markdown("### Environment and Sustainable Engineering (ESE)")
     ese2 = (
         st.number_input("ESE (60)", 0.0, 60.0, 0.0, 1.0, key="g2_ese_ese") +
@@ -166,14 +155,12 @@ elif group == 2:
     )
     subjects.append(("ESE", 2, ese2, gp(ese2)))
 
-    # SS
     st.markdown("### Soft Skills (SS)")
     ss_tw = st.number_input("TW (40)", 0.0, 40.0, 0.0, 1.0, key="g2_ss_tw")
     ss_cie = st.number_input("CIE (25)", 0.0, 25.0, 0.0, 1.0, key="g2_ss_cie")
     ss_total = (ss_tw / 40 * 25) + ss_cie
     subjects.append(("SS", 2, ss_total / 50 * 100, gp(ss_total / 50 * 100)))
 
-    # CCA
     st.markdown("### Cocurricular Activity-1 (CCA-1)")
     cca = st.number_input("TW (25)", 0.0, 25.0, 0.0, 1.0, key="g2_cca_tw")
     subjects.append(("CCA-1", 1, cca / 25 * 100, gp(cca / 25 * 100)))
@@ -182,6 +169,7 @@ elif group == 2:
 if subjects and st.button("🎯 Calculate CGPA"):
     df = pd.DataFrame(subjects, columns=["Subject", "Credits", "Percentage", "Grade Point"])
     df["Credit Points"] = df["Credits"] * df["Grade Point"]
+    df.index = range(1, len(df) + 1)  # SR starts from 1
     st.dataframe(df, use_container_width=True)
     cgpa = df["Credit Points"].sum() / df["Credits"].sum()
     st.success(f"✅ Your CGPA is **{round(cgpa, 2)}**")
