@@ -5,12 +5,12 @@ st.set_page_config(page_title="CGPA Calculator", layout="centered")
 st.title("🎓 CGPA Calculator – Semester 1")
 
 def gp(p):
-    if p >= 91: return 10
-    elif p >= 81: return 9
-    elif p >= 71: return 8
-    elif p >= 61: return 7
-    elif p >= 51: return 6
-    elif p >= 41: return 5
+    if p > 90: return 10
+    elif p > 80: return 9
+    elif p > 70: return 8
+    elif p > 60: return 7
+    elif p > 50: return 6
+    elif p > 40: return 5
     else: return 0
 
 group = st.selectbox("Select Group", [1, 2])
