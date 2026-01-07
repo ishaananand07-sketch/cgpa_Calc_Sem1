@@ -1,204 +1,104 @@
-g=int(input("Enter group(1/2): "))
+import streamlit as st
+
+st.set_page_config(page_title="CGPA Calculator", layout="centered")
+st.title("🎓 CGPA Calculator – Semester 1")
+
 def gp(perc):
-    if perc>=91:
-        return 10
-    elif perc>=81:
-        return 9
-    elif perc>=71:
-        return 8
-    elif perc>=61:
-        return 7
-    elif perc>=51:
-        return 6
-    elif perc>=41:
-        return 5
-    else:
-        return 0
+    if perc >= 91: return 10
+    elif perc >= 81: return 9
+    elif perc >= 71: return 8
+    elif perc >= 61: return 7
+    elif perc >= 51: return 6
+    elif perc >= 41: return 5
+    else: return 0
 
-def lac():
-    credits=4
-    lacese=float(input("Enter lac endsem marks (outoff 60): "))
-    lacise=float(input("Enter lac insem marks (outoff 20): "))
-    lactw=float(input("Enter lac term work (outoff 60): "))
-    lactw=(lactw/60*25)
-    laccie=float(input("Enter lac cie+attendendance (outoff 20): "))
-    lactotal=lacese+lacise+lactw+laccie
-    lacperc=(lactotal/125)*100
-    print("Total marks obtained in LAC:",lactotal,"outoff 125")
-    print("Percentage obtained in LAC:",lacperc,"%")
-    lacgp=gp(lacperc)
-    print("Grade point obtained in LAC:",lacgp)
-    print("Total Credits for LAC: ",credits)
-    print()
-    return (lacgp*credits)
-    
-def cst():
-    credits=2
-    cstese=float(input("Enter cst endsem marks (outoff 60): "))
-    cstise=float(input("Enter cst insem marks (outoff 20): "))
-    cstcie=float(input("Enter cst cie+attendendance (outoff 20): "))
-    csttotal=cstese+cstise+cstcie
-    cstperc=(csttotal/100)*100
-    print("Total marks obtained in CST:",csttotal,"outoff 100")
-    print("Percentage obtained in CST:",cstperc,"%")
-    cstgp=gp(cstperc)
-    print("Grade point obtained in CST:",cstgp)
-    print("Total Credits for CST: ",credits)
-    print() 
-    return (cstgp*credits)
-    
+g = st.selectbox("Select Group", [1, 2], key="group")
 
-def cstl():
-    credits=1
-    cstltw=float(input("Enter cst term work (outoff 100): "))
-    cstltw=(cstltw/100*25)
-    cstltotal=cstltw
-    cstlperc=(cstltotal/25)*100
-    print("Total marks obtained in CSTL:",cstltotal,"outoff 25")
-    print("Percentage obtained in CSTL:",cstlperc,"%")
-    cstlgp=gp(cstlperc)
-    print("Grade point obtained in CSTL:",cstlgp) 
-    print("Total Credits for CSTL: ",credits)
-    print() 
-    return (cstlgp*credits)
-    
+if g == 2:
+    st.subheader("Enter Marks")
 
-def cgd():
-    credits=2
-    cgdese=float(input("Enter cgd endsem marks (outoff 60): "))
-    cgdise=float(input("Enter cgd insem marks (outoff 20): "))
-    cgdcie=float(input("Enter cgd cie+attendendance (outoff 20): "))
-    cgdtotal=cgdese+cgdise+cgdcie
-    cgdperc=(cgdtotal/100)*100
-    print("Total marks obtained in CGD:",cgdtotal,"outoff 100")
-    print("Percentage obtained in CGD:",cgdperc,"%")
-    cgdgp=gp(cgdperc)
-    print("Grade point obtained in CGD:",cgdgp)
-    print("Total Credits for CGD: ",credits)
-    print() 
-    return (cgdgp*credits)
-    
+    # LAC
+    st.markdown("### LAC")
+    lacese = st.number_input("LAC Endsem (60)", 0.0, 60.0, key="lacese")
+    lacise = st.number_input("LAC Insem (20)", 0.0, 20.0, key="lacise")
+    lactw = st.number_input("LAC Term Work (60)", 0.0, 60.0, key="lactw")
+    laccie = st.number_input("LAC CIE + Attendance (20)", 0.0, 20.0, key="laccie")
+    lac_total = lacese + lacise + (lactw / 60 * 25) + laccie
+    lac_gp = gp((lac_total / 125) * 100)
 
-def cgdl():
-    credits=1
-    cgdltw=float(input("Enter cgdl term work (outoff 70): "))
-    cgdltw=(cgdltw/70*25)
-    cgdltotal=cgdltw
-    cgdlperc=(cgdltotal/25)*100
-    print("Total marks obtained in CGDL:",cgdltotal,"outoff 25")
-    print("Percentage obtained in CGDL:",cgdlperc,"%")
-    cgdlgp=gp(cgdlperc)
-    print("Grade point obtained in CGDL:",cgdlgp)
-    print("Total Credits for CGDL: ",credits)
-    print() 
-    return (cgdlgp*credits) 
-    
+    # CST
+    st.markdown("### CST")
+    cstese = st.number_input("CST Endsem (60)", 0.0, 60.0, key="cstese")
+    cstise = st.number_input("CST Insem (20)", 0.0, 20.0, key="cstise")
+    cstcie = st.number_input("CST CIE + Attendance (20)", 0.0, 20.0, key="cstcie")
+    cst_gp = gp(cstese + cstise + cstcie)
 
-def cpps():
-    credits=2
-    cppsese=float(input("Enter cpps endsem marks (outoff 60): "))
-    cppsise=float(input("Enter cpps insem marks (outoff 20): "))
-    cppscie=float(input("Enter cpps cie+attendendance (outoff 20): "))
-    cppstotal=cppsese+cppsise+cppscie
-    cppsperc=(cppstotal/100)*100
-    print("Total marks obtained in CPPS:",cppstotal,"outoff 100")
-    print("Percentage obtained in CPPS:",cppsperc,"%")
-    cppsgp=gp(cppsperc)
-    print("Grade point obtained in CPPS:",cppsgp)
-    print("Total Credits for CPPS: ",credits)
-    print() 
-    return (cppsgp*credits)
-    
+    # CSTL
+    st.markdown("### CSTL")
+    cstltw = st.number_input("CSTL Term Work (100)", 0.0, 100.0, key="cstltw")
+    cstl_gp = gp((cstltw / 100) * 100)
 
-def cppsl():
-    credits=1
-    cppsltw=float(input("Enter cppsl term work (outoff 100): "))
-    cppsltw=(cppsltw/100*25)
-    cppsltotal=cppsltw
-    cppslperc=(cppsltotal/25)*100
-    print("Total marks obtained in CPPSL:",cppsltotal,"outoff 25")
-    print("Percentage obtained in CPPSL:",cppslperc,"%")
-    cppslgp=gp(cppslperc)
-    print("Grade point obtained in CPPSL:",cppslgp)
-    print("Total Credits for CPPSL: ",credits)
-    print() 
-    return (cppslgp*credits)
-    
+    # CGD
+    st.markdown("### CGD")
+    cgdese = st.number_input("CGD Endsem (60)", 0.0, 60.0, key="cgdese")
+    cgdise = st.number_input("CGD Insem (20)", 0.0, 20.0, key="cgdise")
+    cgdcie = st.number_input("CGD CIE + Attendance (20)", 0.0, 20.0, key="cgdcie")
+    cgd_gp = gp(cgdese + cgdise + cgdcie)
 
-def ese():
-    credits=2
-    esee=float(input("Enter ese endsem marks (outoff 60): "))
-    eseie=float(input("Enter ese insem marks (outoff 20): "))
-    esecie=float(input("Enter ese cie+attendendance (outoff 20): "))
-    esetotal=esee+eseie+esecie
-    eseperc=(esetotal/100)*100
-    print("Total marks obtained in ESE:",esetotal,"outoff 100")
-    print("Percentage obtained in ESE:",eseperc,"%")
-    esegp=gp(eseperc)
-    print("Grade point obtained in ESE:",esegp)
-    print("Total Credits for ESE: ",credits)
-    print() 
-    return (esegp*credits)
-    
+    # CGDL
+    st.markdown("### CGDL")
+    cgdltw = st.number_input("CGDL Term Work (70)", 0.0, 70.0, key="cgdltw")
+    cgdl_gp = gp((cgdltw / 70) * 100)
 
-def iidtl():
-    credits=1
-    iidltw=float(input("Enter iidtl term work (outoff 60): "))
-    iidltotal=iidltw/60*50            
-    iidlperc=(iidltotal/50)*100
-    print("Total marks obtained in IIDTL:",iidltotal,"outoff 60")
-    print("Percentage obtained in IIDTL:",iidlperc,"%")
-    iidlgp=gp(iidlperc)
-    print("Grade point obtained in IIDTL:",iidlgp)
-    print("Total Credits for IIDTL: ",credits)
-    print() 
-    return (iidlgp*credits)
-    
+    # CPPS
+    st.markdown("### CPPS")
+    cppsese = st.number_input("CPPS Endsem (60)", 0.0, 60.0, key="cppsese")
+    cppsise = st.number_input("CPPS Insem (20)", 0.0, 20.0, key="cppsise")
+    cppscie = st.number_input("CPPS CIE + Attendance (20)", 0.0, 20.0, key="cppscie")
+    cpps_gp = gp(cppsese + cppsise + cppscie)
 
-def ss():
-    credits=2
-    sstw=float(input("Enter ss term work (outoff 40): "))
-    sstw=(sstw/40*25)
-    sscie=float(input("Enter ss cie+attendendance (outoff 25): "))
-    sstotal=sstw+sscie
-    ssperc=(sstotal/50)*100
-    print("Total marks obtained in SS:",sstotal,"outoff 50")
-    print("Percentage obtained in SS:",ssperc,"%")
-    ssgp=gp(ssperc)
-    print("Grade point obtained in SS:",ssgp)
-    print("Total Credits for SS: ",credits)
-    print() 
-    return (ssgp*credits)
-    
+    # CPPSL
+    st.markdown("### CPPSL")
+    cppsltw = st.number_input("CPPSL Term Work (100)", 0.0, 100.0, key="cppsltw")
+    cppsl_gp = gp((cppsltw / 100) * 100)
 
-def cca():
-    credits=1
-    ccatw=float(input("Enter cca term work (outoff 25): "))
-    ccatotal=ccatw
-    ccaperc=(ccatotal/25)*100
-    print("Total marks obtained in CCA:",ccatotal,"outoff 25")
-    print("Percentage obtained in CCA:",ccaperc,"%")
-    ccagp=gp(ccaperc)
-    print("Grade point obtained in CCA:",ccagp)
-    print("Total Credits for CCA: ",credits)
-    print() 
-    return (ccagp*credits)  
-    
-print()
+    # ESE
+    st.markdown("### ESE")
+    esee = st.number_input("ESE Endsem (60)", 0.0, 60.0, key="esee")
+    eseie = st.number_input("ESE Insem (20)", 0.0, 20.0, key="eseie")
+    esecie = st.number_input("ESE CIE + Attendance (20)", 0.0, 20.0, key="esecie")
+    ese_gp = gp(esee + eseie + esecie)
 
-if g==2:
-    s1=lac()
-    s2=cst()
-    s3=cstl()
-    s4=cgd()
-    s5=cgdl()
-    s6=cpps()
-    s7=cppsl()
-    s8=ese()
-    s9=iidtl()
-    s10=ss()
-    s11=cca()
-    total_credits=19
-    total_points=s1+s2+s3+s4+s5+s6+s7+s8+s9+s10+s11
-    cgpa=total_points/total_credits
-    print("Your CGPA is:",round(cgpa,2))
+    # IIDTL
+    st.markdown("### IIDTL")
+    iidltw = st.number_input("IIDTL Term Work (60)", 0.0, 60.0, key="iidltw")
+    iidtl_gp = gp((iidltw / 60) * 100)
+
+    # SS
+    st.markdown("### SS")
+    sstw = st.number_input("SS Term Work (40)", 0.0, 40.0, key="sstw")
+    sscie = st.number_input("SS CIE + Attendance (25)", 0.0, 25.0, key="sscie")
+    ss_gp = gp(((sstw / 40 * 25) + sscie) / 50 * 100)
+
+    # CCA
+    st.markdown("### CCA")
+    ccatw = st.number_input("CCA Term Work (25)", 0.0, 25.0, key="ccatw")
+    cca_gp = gp((ccatw / 25) * 100)
+
+    if st.button("🎯 Calculate CGPA"):
+        total_points = (
+            lac_gp * 4 +
+            cst_gp * 2 +
+            cstl_gp * 1 +
+            cgd_gp * 2 +
+            cgdl_gp * 1 +
+            cpps_gp * 2 +
+            cppsl_gp * 1 +
+            ese_gp * 2 +
+            iidtl_gp * 1 +
+            ss_gp * 2 +
+            cca_gp * 1
+        )
+
+        cgpa = total_points / 19
+        st.success(f"✅ Your CGPA is **{round(cgpa, 2)}**")
