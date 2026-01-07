@@ -95,6 +95,11 @@ if group == 1:
     iks = st.number_input("TW (30)", 0.0, 30.0, 0.0, 1.0, key="g1_iks_tw")
     subjects.append(("IKS", 2, iks / 30 * 100, gp(iks / 30 * 100)))
 
+    # ✅ CCA-1 (ADDED)
+    st.markdown("### Cocurricular Activity-1 (CCA-1)")
+    cca = st.number_input("TW (25)", 0.0, 25.0, 0.0, 1.0, key="g1_cca_tw")
+    subjects.append(("CCA-1", 1, cca / 25 * 100, gp(cca / 25 * 100)))
+    
 # ======================= GROUP 2 =======================
 elif group == 2:
     st.subheader("Group 2")
